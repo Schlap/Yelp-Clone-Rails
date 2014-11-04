@@ -62,17 +62,25 @@ context 'editing restaurants' do
     Restaurant.create(name: 'KFC')
   end
 
-  it 'lets a user edit a restaurant' do
+  it 'doesnt let a user edit a restaurant if not created by user' do
     User.create(email: 'test@test.com', password: '12345678', password_confirmation: '12345678')
     visit '/users/sign_in'
     fill_in('Email', with: 'test@test.com')
     fill_in('Password', with: '12345678')
     click_button('Log in')
-    click_link 'Edit KFC'
-    fill_in 'Name', with: 'Kentucky Fried Chicken'
-    click_button 'Update Restaurant'
-    expect(page).to have_content 'Kentucky Fried Chicken'
-    expect(current_path).to eq '/restaurants'
+    expect(page).not_to have_content 'Edit KFC'
+  end
+
+  it 'lets a user edit a restaurant only when they have created it' do
+    User.create(email: 'test@test.com', password: '12345678', password_confirmation: '12345678')
+    visit '/users/sign_in'
+    fill_in('Email', with: 'test@test.com')
+    fill_in('Password', with: '12345678')
+    click_button 'Log in'
+    click_link 'Add a restaurant'
+    fill_in 'Name', with: 'Hakisan'
+    click_button 'Create Restaurant'
+    expect(page).to have_content ('Edit Hakisan')
   end
 end
 
@@ -119,6 +127,8 @@ describe 'creating restaurants' do
     expect(page).not_to have_content 'Add a restaurant'
   end
 end
+
+
 
 
 
