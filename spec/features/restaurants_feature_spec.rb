@@ -90,15 +90,25 @@ describe 'deleting restaurants' do
     Restaurant.create(:name => "KFC")
   end
 
-  it 'removes restaurant when a user clicks a delete link' do
+  it 'removes restaurant user creates restaurant and clicks delete link' do
     User.create(email: 'test@test.com', password: '12345678', password_confirmation: '12345678')
     visit '/users/sign_in'
     fill_in('Email', with: 'test@test.com')
     fill_in('Password', with: '12345678')
     click_button('Log in')
-    click_link 'Delete KFC'
-    expect(page).not_to have_content 'KFC'
-    expect(page).to have_content 'Restaurant deleted successfully'
+    click_link 'Add a restaurant'
+    fill_in 'Name', with: 'McDonalds'
+    click_button 'Create Restaurant'
+    expect(page).to have_content 'Delete McDonalds'
+  end
+
+  it 'cannot delete restaurant when belongs to another user' do
+    User.create(email: 'test@test.com', password: '12345678', password_confirmation: '12345678')
+    visit '/users/sign_in'
+    fill_in('Email', with: 'test@test.com')
+    fill_in('Password', with: '12345678')
+    click_button('Log in')
+    expect(page).not_to have_content 'Delete KFC'
   end
 end
 
@@ -127,20 +137,6 @@ describe 'creating restaurants' do
     expect(page).not_to have_content 'Add a restaurant'
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
