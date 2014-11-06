@@ -15,12 +15,12 @@ describe 'reviewing' do
     expect(page).to have_content('so so')
   end
 
-  it 'displays an average rating for all reviews' do
-    leave_review('So so', "3")
-    new_user
-    leave_review('Great', "5")
-    expect(page).to have_content("Average rating: 4")
-  end
+  # it 'displays an average rating for all reviews' do
+  #   leave_review('So so', "3")
+  #   new_user
+  #   leave_review('Great', "5")
+  #   expect(page).to have_content("Average rating: 4")
+  # end
 end
 
 
@@ -28,6 +28,7 @@ end
 describe 'reviewing restaurants' do
   before do
     Restaurant.create(:name => 'Bone Daddies')
+    Restaurant.create(:name => 'KFC')
   end
 
   context 'more than once' do
@@ -41,6 +42,13 @@ describe 'reviewing restaurants' do
       click_button('Leave Review')
       expect(page).to have_content 'Sorry, you have already reviewed this restaurant'
     end
+  end
+
+  it "displays an average rating for all reviews" do
+      leave_review("so so", "3")
+      new_user
+      leave_review("Great!", "5")
+      expect(page).to have_content("Average rating: ★★★★☆")
   end
 end
 
