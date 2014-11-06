@@ -1,6 +1,6 @@
 <% if @restaurants.any? %>
   <% @restaurants.each do |restaurant| %>
-    <h2><%= link_to "#{restaurant.name}", restaurant_path(restaurant) %></h2>
+    <h2><%= link_to "#{restaurant.name}", restaurant_path(restaurant) %> Average rating: <%= restaurant.average_rating.to_i %></h2>
 
     <% if restaurant.user == current_user %>
     <br><%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %></br>
@@ -17,7 +17,7 @@
                 <% restaurant.reviews.each do |review| %>
                       <li><%= review.thoughts %> <strong><%= review.rating %>/5</strong></li>
                 <% end %>
-          </ul>      
+              </ul>      
       <% end %>
   <% end %>
 <% else %>

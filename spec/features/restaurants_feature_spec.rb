@@ -40,6 +40,11 @@ describe 'creating restaurants' do
     expect(page).to have_content 'KFC'
     expect(current_path).to eq '/restaurants'
   end
+
+    it 'when a user is not signed in' do
+      visit '/restaurants'
+      expect(page).not_to have_content 'Add a restaurant'
+    end
 end
 
 context 'viewing restaurants' do
@@ -131,9 +136,23 @@ describe 'creating restaurants' do
   end
 end
 
-describe 'creating restaurants' do
-  it 'when a user is not signed in' do
-    visit '/restaurants'
-    expect(page).not_to have_content 'Add a restaurant'
+
+describe '#average rating' do
+  context 'no reviews' do
+    it 'returns not available when there are no reviews' do
+      @restaurant = Restaurant.create(name: "The Ivy")
+      expect(@restaurant.average_rating).to eq 'N/A'
+    end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
