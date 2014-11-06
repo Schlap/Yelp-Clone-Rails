@@ -137,20 +137,3 @@ describe 'creating restaurants' do
     expect(page).not_to have_content 'Add a restaurant'
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
