@@ -37,6 +37,10 @@ gem 'rspec-collection_matchers', group: :test
 
 gem 'launchy', group: :test
 
+gem 'poltergeist', group: :test
+
+gem 'database_cleaner', group: :test
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
