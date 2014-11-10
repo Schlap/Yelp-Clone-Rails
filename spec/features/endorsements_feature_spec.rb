@@ -8,7 +8,6 @@ describe 'endorsing reviews' do
 
   it "a user can endorse a review, which increments the endorsement count", js: true do
     visit '/restaurants'
-    save_and_open_page
     click_link 'Endorse'
     expect(page).to have_content('1 endorsements')
   end
